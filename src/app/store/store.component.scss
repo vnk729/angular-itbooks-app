@@ -1,0 +1,21 @@
+a {
+  color: #2a6496;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+table thead {
+  cursor: pointer;
+}
+
+.subtitle {
+  padding-left: .5rem;
+}
+
+.price {
+  color: #b2395b;
+  font-weight: bold;
+}

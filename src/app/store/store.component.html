@@ -1,0 +1,45 @@
+<h1>IT Bookstore</h1>
+
+<div class="form-group w-25">
+  <input type="text" placeholder="Search" class="form-control" [(ngModel)]="search">
+</div>
+
+<table class="table table-striped mt-1 align-middle">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" (click)="onSortOrder('title')">Title</th>
+      <th scope="col" (click)="onSortOrder('price')">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of books | filter: search | sort: columnName: sortOrder; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <img [src]="book.image" alt="" width="50">
+        <a href="#" (click)="getBook(book.isbn13, content)">{{ book.title }}</a>
+        <small class="text-muted subtitle">{{ book.subtitle }}</small>
+      </td>
+      <td class="price">{{ book.price === '$0.00' ? 'Free' : book.price }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Book Info</h4>
+  </div>
+  <div class="modal-body">
+    <ul>
+      <li>Authors: <b>{{ bookInfo.authors }}</b></li>
+      <li>Publisher: <b>{{ bookInfo.publisher }}</b></li>
+      <li>Published: <b>{{ bookInfo.year }}</b></li>
+      <li>Pages: <b>{{ bookInfo.pages }}</b></li>
+      <li>Language: <b>{{ bookInfo.language }}</b></li>
+      <li>URL: <b><a [href]="bookInfo.url" target="_blank">{{ bookInfo.url }}</a></b></li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
