@@ -5,7 +5,7 @@ import { orderBy } from 'lodash';
   name: 'sort',
 })
 export class SortPipe implements PipeTransform {
-  transform(list: any[], sortBy: string, order: any): any[] {
+  transform(list: any[], sortBy: string, order: 'asc' | 'desc'): any[] {
     return orderBy(list, [sortBy], [order]);
   }
 }

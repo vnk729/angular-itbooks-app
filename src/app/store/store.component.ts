@@ -10,10 +10,10 @@ import { StoreService, Book, BookInfo } from './store.service';
 })
 export class StoreComponent implements OnInit {
   books: Book[] = [];
-  bookInfo: any;
+  bookInfo!: BookInfo;
   search: string = '';
-  columnName: string = '';
-  sortOrder: string = 'asc';
+  columnName!: string;
+  sortOrder!: 'asc' | 'desc';
 
   constructor(
     private http: HttpClient,
@@ -21,7 +21,7 @@ export class StoreComponent implements OnInit {
     private storeService: StoreService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.fetchBooks();
   }
 

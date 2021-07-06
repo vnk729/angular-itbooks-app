@@ -11,8 +11,8 @@ export class StoreService {
 
   constructor(private http: HttpClient) { }
 
-  fetchBooks(): Observable<any> {
-    return this.http.get<any>(`${this.corsURL}${this.apiURL}/new`);
+  fetchBooks(): Observable<{ books: Book[] }> {
+    return this.http.get<{ books: Book[] }>(`${this.corsURL}${this.apiURL}/new`);
   }
 
   getBook(isbn: string): Observable<BookInfo> {
