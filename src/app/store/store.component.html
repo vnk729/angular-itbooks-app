@@ -5,7 +5,7 @@
       <input type="text" placeholder="Search" class="form-control" [(ngModel)]="search">
     </div>
   </div>
-  <button type="button" class="btn btn-light" (click)="showShoppingCart()" [disabled]="shoppingCart.length === 0">
+  <button type="button" class="btn btn-light" (click)="showShoppingCart()">
     Cart <span class="badge bg-success">{{ shoppingCart.length }}</span>
   </button>
 </header>
@@ -58,9 +58,10 @@
 
 <app-modal *ngIf="showCart">
   <div class="modal-header">
-    <h4 class="modal-title">Shopping Cart</h4>
+    <h4 class="modal-title">Cart</h4>
   </div>
   <div class="modal-body">
+    <p class="empty" *ngIf="shoppingCart.length === 0">Shopping Cart is Empty</p>
     <ul class="list-group" *ngFor="let book of shoppingCart">
       <li class="list-group-item">{{ book }}</li>
     </ul>
