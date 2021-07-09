@@ -72,8 +72,8 @@ export class StoreComponent implements OnInit, OnDestroy {
     this.showCart = true;
   }
 
-  closeModal(show: boolean): void {
-    this.showInfo = !show;
-    this.showCart = !show;
+  closeModal(): void {
+    this.showInfo = false;
+    this.showCart = false;
   }
 }
