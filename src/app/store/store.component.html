@@ -30,7 +30,7 @@
       <td class="price">{{ book.price === '$0.00' ? 'Free' : book.price }}</td>
       <td>
         <button type="button" class="btn btn-success" *ngIf="!shoppingCart.includes(book.title)" (click)="addBookToCart(book)">+</button>
-        <button type="button" class="btn btn-secondary" *ngIf="shoppingCart.includes(book.title)" (click)="removeBookFromCart(book)">-</button>
+        <button type="button" class="btn btn-secondary" *ngIf="shoppingCart.includes(book.title)" (click)="removeBookFromCart(book.title)">-</button>
       </td>
     </tr>
   </tbody>
@@ -63,7 +63,10 @@
   <div class="modal-body">
     <p class="empty" *ngIf="shoppingCart.length === 0">Shopping Cart is Empty</p>
     <ul class="list-group" *ngFor="let book of shoppingCart">
-      <li class="list-group-item">{{ book }}</li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ book }}
+        <button type="button" class="btn btn-secondary" (click)="removeBookFromCart(book)">-</button>
+      </li>
     </ul>
   </div>
   <div class="modal-footer">

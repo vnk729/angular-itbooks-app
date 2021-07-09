@@ -64,8 +64,8 @@ export class StoreComponent implements OnInit, OnDestroy {
     this.shoppingCart.push(book.title);
   }
 
-  removeBookFromCart(book: Book): void {
-    this.shoppingCart.splice(this.shoppingCart.indexOf(book.title), 1);
+  removeBookFromCart(book: string): void {
+    this.shoppingCart.splice(this.shoppingCart.indexOf(book), 1);
   }
 
   showShoppingCart(): void {
