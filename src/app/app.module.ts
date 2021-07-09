@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { StoreComponent } from './store/store.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StoreComponent,
     FilterPipe,
-    SortPipe
+    SortPipe,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

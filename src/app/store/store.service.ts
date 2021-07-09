@@ -29,6 +29,7 @@ export interface Book {
 }
 
 export interface BookInfo {
+  title: string,
   authors: string,
   publisher: string,
   year: string,

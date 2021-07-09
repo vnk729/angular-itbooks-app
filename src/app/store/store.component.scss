@@ -1,5 +1,26 @@
+$text-color: #212529;
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 8rem;
+  padding: 0 2rem;
+  background-color: #134b72;
+
+  .title {
+    color: #fff;
+  }
+
+  .btn {
+    width: 6rem;
+    font-weight: bold;
+    color: $text-color;
+  }
+}
+
 a {
-  color: #2a6496;
+  color: $text-color;
   text-decoration: none;
 }
 
@@ -7,15 +28,21 @@ a:hover {
   text-decoration: underline;
 }
 
-table thead {
-  cursor: pointer;
-}
+table {
+  thead {
+    cursor: pointer;
+  }
 
-.subtitle {
-  padding-left: .5rem;
-}
+  .subtitle {
+    padding-left: .5rem;
+  }
 
-.price {
-  color: #b2395b;
-  font-weight: bold;
+  .price {
+    color: #b2395b;
+    font-weight: bold;
+  }
+
+  .btn {
+    width: 36px;
+  }
 }

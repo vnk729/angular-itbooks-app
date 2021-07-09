@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { StoreService, Book, BookInfo } from './store.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { StoreService, Book, BookInfo } from './store.service';
 
 @Component({
   selector: 'app-store',
@@ -17,23 +16,25 @@ export class StoreComponent implements OnInit, OnDestroy {
   search: string = '';
   columnName!: string;
   sortOrder!: 'asc' | 'desc';
+  shoppingCart: string[] = [];
+  showCart: boolean = false;
+  showInfo: boolean = false;
 
   constructor(
     private http: HttpClient,
-    private modalService: NgbModal,
-    private storeService: StoreService
+    private storeService: StoreService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.fetchBooks();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
 
-  fetchBooks() {
+  fetchBooks(): void {
     this.storeService.fetchBooks()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
@@ -43,19 +44,36 @@ export class StoreComponent implements OnInit, OnDestroy {
         (error) => alert(error.message));
   }
 
-  getBook(isbn: string, content: any) {
+  showBookInfo(isbn: string): void {
     this.storeService.getBook(isbn)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
         (bookInfo) => {
           this.bookInfo = bookInfo;
-          this.modalService.open(content);
+          this.showInfo = true;
         },
         (error) => alert(error.message));
   }
 
-  onSortOrder(columnName: string) {
+  onSortOrder(columnName: string): void {
     this.columnName = columnName;
     this.sortOrder = this.sortOrder === 'desc' ? 'asc' : 'desc';
+  }
+
+  addBookToCart(book: Book): void {
+    this.shoppingCart.push(book.title);
+  }
+
+  removeBookFromCart(book: Book): void {
+    this.shoppingCart.splice(this.shoppingCart.indexOf(book.title), 1);
+  }
+
+  showShoppingCart(): void {
+    this.showCart = true;
+  }
+
+  closeModal(show: boolean): void {
+    this.showInfo = !show;
+    this.showCart = !show;
   }
 }

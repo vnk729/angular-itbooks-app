@@ -1,15 +1,22 @@
-<h1>IT Bookstore</h1>
+<header>
+  <div>
+    <h1 class="title">IT Bookstore</h1>
+    <div class="form-group">
+      <input type="text" placeholder="Search" class="form-control" [(ngModel)]="search">
+    </div>
+  </div>
+  <button type="button" class="btn btn-light" (click)="showShoppingCart()" [disabled]="shoppingCart.length === 0">
+    Cart <span class="badge bg-success">{{ shoppingCart.length }}</span>
+  </button>
+</header>
 
-<div class="form-group w-25">
-  <input type="text" placeholder="Search" class="form-control" [(ngModel)]="search">
-</div>
-
-<table class="table table-striped mt-1 align-middle">
+<table class="table table-striped mt-2 align-middle">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col" (click)="onSortOrder('title')">Title</th>
       <th scope="col" (click)="onSortOrder('price')">Price</th>
+      <th scope="col">Buy</th>
     </tr>
   </thead>
   <tbody>
@@ -17,29 +24,48 @@
       <th scope="row">{{ i + 1 }}</th>
       <td>
         <img [src]="book.image" alt="" width="50">
-        <a href="#" (click)="getBook(book.isbn13, content)">{{ book.title }}</a>
+        <a href="#" (click)="showBookInfo(book.isbn13)">{{ book.title }}</a>
         <small class="text-muted subtitle">{{ book.subtitle }}</small>
       </td>
       <td class="price">{{ book.price === '$0.00' ? 'Free' : book.price }}</td>
+      <td>
+        <button type="button" class="btn btn-success" *ngIf="!shoppingCart.includes(book.title)" (click)="addBookToCart(book)">+</button>
+        <button type="button" class="btn btn-secondary" *ngIf="shoppingCart.includes(book.title)" (click)="removeBookFromCart(book)">-</button>
+      </td>
     </tr>
   </tbody>
 </table>
 
-<ng-template #content let-modal>
+<app-modal *ngIf="showInfo">
   <div class="modal-header">
     <h4 class="modal-title">Book Info</h4>
   </div>
   <div class="modal-body">
-    <ul>
-      <li>Authors: <b>{{ bookInfo.authors }}</b></li>
-      <li>Publisher: <b>{{ bookInfo.publisher }}</b></li>
-      <li>Published: <b>{{ bookInfo.year }}</b></li>
-      <li>Pages: <b>{{ bookInfo.pages }}</b></li>
-      <li>Language: <b>{{ bookInfo.language }}</b></li>
-      <li>URL: <b><a [href]="bookInfo.url" target="_blank">{{ bookInfo.url }}</a></b></li>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Title: <b>{{ bookInfo.title }}</b></li>
+      <li class="list-group-item">Authors: <b>{{ bookInfo.authors }}</b></li>
+      <li class="list-group-item">Publisher: <b>{{ bookInfo.publisher }}</b></li>
+      <li class="list-group-item">Published: <b>{{ bookInfo.year }}</b></li>
+      <li class="list-group-item">Pages: <b>{{ bookInfo.pages }}</b></li>
+      <li class="list-group-item">Language: <b>{{ bookInfo.language }}</b></li>
+      <li class="list-group-item">URL: <b><a [href]="bookInfo.url" target="_blank">{{ bookInfo.url }}</a></b></li>
     </ul>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-light" (click)="closeModal(showInfo)">Close</button>
   </div>
-</ng-template>
+</app-modal>
+
+<app-modal *ngIf="showCart">
+  <div class="modal-header">
+    <h4 class="modal-title">Shopping Cart</h4>
+  </div>
+  <div class="modal-body">
+    <ul class="list-group" *ngFor="let book of shoppingCart">
+      <li class="list-group-item">{{ book }}</li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="closeModal(showCart)">Close</button>
+  </div>
+</app-modal>
