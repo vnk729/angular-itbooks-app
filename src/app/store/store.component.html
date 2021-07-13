@@ -36,10 +36,10 @@
   </tbody>
 </table>
 
-<app-modal *ngIf="showInfo">
-  <app-info [bookInfo]="bookInfo" [showCart]="showCart" (isShowCart)="closeModal($event)"></app-info>
+<app-modal *ngIf="isShowInfo">
+  <app-info [bookInfo]="bookInfo" (isShow)="closeModal($event)"></app-info>
 </app-modal>
 
-<app-modal *ngIf="showCart">
-  <app-cart [shoppingCart]="shoppingCart" [showCart]="showCart" (isShowCart)="closeModal($event)"></app-cart>
+<app-modal [hidden]="!isShowCart">
+  <app-cart [shoppingCart]="shoppingCart" (isShow)="closeModal($event)"></app-cart>
 </app-modal>

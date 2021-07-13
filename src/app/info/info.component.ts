@@ -8,13 +8,9 @@ import { BookInfo } from '../store/store.service';
 })
 export class InfoComponent {
   @Input() bookInfo!: BookInfo;
-  @Input() showCart: boolean = true;
-  @Output() isShowCart: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  constructor() { }
+  @Output() isShow: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   close(): void {
-    this.showCart = false;
-    this.isShowCart.emit(this.showCart);
+    this.isShow.emit(false);
   }
 }

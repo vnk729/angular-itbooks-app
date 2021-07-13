@@ -6,7 +6,7 @@
   <ul class="list-group" *ngFor="let book of shoppingCart">
     <li class="list-group-item d-flex justify-content-between align-items-center">
       {{ book }}
-      <button type="button" class="btn btn-secondary" (click)="removeBookFromCart(book)">-</button>
+      <button type="button" class="btn btn-secondary" (click)="remove(book)">-</button>
     </li>
   </ul>
 </div>

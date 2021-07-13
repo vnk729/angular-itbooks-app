@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { StoreService, Book, BookInfo } from './store.service';
+import { CartComponent } from '../cart/cart.component';
 
 @Component({
   selector: 'app-store',
@@ -17,8 +18,10 @@ export class StoreComponent implements OnInit, OnDestroy {
   columnName!: string;
   sortOrder!: 'asc' | 'desc';
   shoppingCart: string[] = [];
-  showInfo: boolean = false;
-  showCart: boolean = false;
+  isShowInfo: boolean = false;
+  isShowCart: boolean = false;
+
+  @ViewChild(CartComponent) cart!: CartComponent;
 
   constructor(
     private http: HttpClient,
@@ -50,7 +53,7 @@ export class StoreComponent implements OnInit, OnDestroy {
       .subscribe(
         (bookInfo) => {
           this.bookInfo = bookInfo;
-          this.showInfo = true;
+          this.isShowInfo = true;
         },
         (error) => alert(error.message));
   }
@@ -65,15 +68,15 @@ export class StoreComponent implements OnInit, OnDestroy {
   }
 
   removeBookFromCart(book: string): void {
-    this.shoppingCart.splice(this.shoppingCart.indexOf(book), 1);
+    this.cart.remove(book);
   }
 
   showShoppingCart(): void {
-    this.showCart = true;
+    this.isShowCart = true;
   }
 
   closeModal(state: boolean): void {
-    this.showInfo = state;
-    this.showCart = state;
+    this.isShowInfo = state;
+    this.isShowCart = state;
   }
 }
