@@ -17,8 +17,8 @@ export class StoreComponent implements OnInit, OnDestroy {
   columnName!: string;
   sortOrder!: 'asc' | 'desc';
   shoppingCart: string[] = [];
-  showCart: boolean = false;
   showInfo: boolean = false;
+  showCart: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -72,8 +72,8 @@ export class StoreComponent implements OnInit, OnDestroy {
     this.showCart = true;
   }
 
-  closeModal(): void {
-    this.showInfo = false;
-    this.showCart = false;
+  closeModal(state: boolean): void {
+    this.showInfo = state;
+    this.showCart = state;
   }
 }

@@ -9,6 +9,8 @@ import { StoreComponent } from './store/store.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { ModalComponent } from './modal/modal.component';
+import { CartComponent } from './cart/cart.component';
+import { InfoComponent } from './info/info.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ModalComponent } from './modal/modal.component';
     StoreComponent,
     FilterPipe,
     SortPipe,
-    ModalComponent
+    ModalComponent,
+    CartComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,

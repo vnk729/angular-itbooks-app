@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h4 class="modal-title">Book Info</h4>
+</div>
+<div class="modal-body">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Title: <b>{{ bookInfo.title }}</b></li>
+    <li class="list-group-item">Authors: <b>{{ bookInfo.authors }}</b></li>
+    <li class="list-group-item">Publisher: <b>{{ bookInfo.publisher }}</b></li>
+    <li class="list-group-item">Published: <b>{{ bookInfo.year }}</b></li>
+    <li class="list-group-item">Pages: <b>{{ bookInfo.pages }}</b></li>
+    <li class="list-group-item">Language: <b>{{ bookInfo.language }}</b></li>
+    <li class="list-group-item">URL: <b><a [href]="bookInfo.url" target="_blank">{{ bookInfo.url }}</a></b></li>
+  </ul>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="close()">Close</button>
+</div>
