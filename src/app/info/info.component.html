@@ -1,17 +1,49 @@
-<div class="modal-header">
-  <h4 class="modal-title">Book Info</h4>
-</div>
-<div class="modal-body">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Title: <b>{{ bookInfo.title }}</b></li>
-    <li class="list-group-item">Authors: <b>{{ bookInfo.authors }}</b></li>
-    <li class="list-group-item">Publisher: <b>{{ bookInfo.publisher }}</b></li>
-    <li class="list-group-item">Published: <b>{{ bookInfo.year }}</b></li>
-    <li class="list-group-item">Pages: <b>{{ bookInfo.pages }}</b></li>
-    <li class="list-group-item">Language: <b>{{ bookInfo.language }}</b></li>
-    <li class="list-group-item">URL: <b><a [href]="bookInfo.url" target="_blank">{{ bookInfo.url }}</a></b></li>
-  </ul>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="close()">Close</button>
+<button class="btn btn-dark" routerLink="/books">Back</button>
+
+<div class="row">
+  <div class="col-md-3">
+    <img [src]="bookInfo?.image" alt="" width="300" height="360">
+  </div>
+
+  <div class="col-md-9">
+    <table class="table table-striped table-borderless">
+      <tbody>
+        <tr>
+          <td>Price</td>
+          <td class="price"><b>{{ bookInfo?.price === '$0.00' ? 'Free' : bookInfo?.price }}</b></td>
+        </tr>
+        <tr>
+          <td>Rating</td>
+          <td><b [innerHTML]="showRating()"></b></td>
+        </tr>
+        <tr>
+          <td>Title</td>
+          <td><b>{{ bookInfo?.title }}</b></td>
+        </tr>
+        <tr>
+          <td>Author</td>
+          <td><b>{{ bookInfo?.authors }}</b></td>
+        </tr>
+        <tr>
+          <td>Publisher</td>
+          <td><b>{{ bookInfo?.publisher }}</b></td>
+        <tr>
+          <td>Published</td>
+          <td><b>{{ bookInfo?.year }}</b></td>
+        </tr>
+        <tr>
+          <td>Pages</td>
+          <td><b>{{ bookInfo?.pages }}</b></td>
+        </tr>
+        <tr>
+          <td>Language</td>
+          <td><b>{{ bookInfo?.language }}</b></td>
+        </tr>
+        <tr *ngIf="bookInfo?.pdf">
+          <td>Download</td>
+          <td><b><a [href]="bookInfo?.pdf['Free eBook']" target="_blank">{{ bookInfo?.pdf['Free eBook'] }}</a></b></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -11,6 +11,9 @@ import { SortPipe } from './pipes/sort.pipe';
 import { ModalComponent } from './modal/modal.component';
 import { CartComponent } from './cart/cart.component';
 import { InfoComponent } from './info/info.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +23,16 @@ import { InfoComponent } from './info/info.component';
     SortPipe,
     ModalComponent,
     CartComponent,
-    InfoComponent
+    InfoComponent,
+    HomeComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

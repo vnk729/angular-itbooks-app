@@ -1,15 +1,15 @@
-<div class="modal-header">
-  <h4 class="modal-title">Cart</h4>
+<div class="empty-cart" *ngIf="this.cartService.books.length === 0 else noEmpty">
+  <h2>Shopping Cart is Empty</h2>
 </div>
-<div class="modal-body">
-  <p class="empty" *ngIf="shoppingCart.length === 0">Shopping Cart is Empty</p>
-  <ul class="list-group" *ngFor="let book of shoppingCart">
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      {{ book }}
-      <button type="button" class="btn btn-secondary" (click)="remove(book)">-</button>
-    </li>
-  </ul>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="close()">Close</button>
-</div>
+
+<ng-template #noEmpty>
+  <div class="no-empty-cart">
+    <h2>{{ this.cartService.books.length }} books in the Shopping Cart</h2>
+    <ul class="list-group" *ngFor="let book of this.cartService.books">
+      <li class="list-group-item">
+        {{ book.title }}
+        <button type="button" class="btn btn-secondary" (click)="removeFromCart(book)">-</button>
+      </li>
+    </ul>
+  </div>
+</ng-template>

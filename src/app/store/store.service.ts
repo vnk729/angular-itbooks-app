@@ -29,6 +29,8 @@ export interface Book {
 }
 
 export interface BookInfo {
+  price: string,
+  rating: number,
   title: string,
   authors: string,
   publisher: string,
@@ -36,4 +38,6 @@ export interface BookInfo {
   pages: string,
   language: string,
   url: string
+  image: string,
+  pdf?: any,
 }

@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { StoreService, Book, BookInfo } from './store.service';
-import { CartComponent } from '../cart/cart.component';
+import { Book, StoreService } from './store.service';
+import { CartService } from '../cart/cart.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-store',
@@ -13,19 +14,15 @@ import { CartComponent } from '../cart/cart.component';
 export class StoreComponent implements OnInit, OnDestroy {
   private readonly unsubscribe$: Subject<void> = new Subject();
   books: Book[] = [];
-  bookInfo!: BookInfo;
   search: string = '';
   columnName!: string;
   sortOrder!: 'asc' | 'desc';
-  shoppingCart: string[] = [];
-  isShowInfo: boolean = false;
-  isShowCart: boolean = false;
-
-  @ViewChild(CartComponent) cart!: CartComponent;
 
   constructor(
     private http: HttpClient,
     private storeService: StoreService,
+    public cartService: CartService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -47,36 +44,16 @@ export class StoreComponent implements OnInit, OnDestroy {
         (error) => alert(error.message));
   }
 
-  showBookInfo(isbn: string): void {
-    this.storeService.getBook(isbn)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(
-        (bookInfo) => {
-          this.bookInfo = bookInfo;
-          this.isShowInfo = true;
-        },
-        (error) => alert(error.message));
+  addToCart(book: Book): void {
+    this.cartService.addToCart(book);
+  }
+
+  removeFromCart(book: Book): void {
+    this.cartService.removeFromCart(book);
   }
 
   onSortOrder(columnName: string): void {
     this.columnName = columnName;
     this.sortOrder = this.sortOrder === 'desc' ? 'asc' : 'desc';
-  }
-
-  addBookToCart(book: Book): void {
-    this.shoppingCart.push(book.title);
-  }
-
-  removeBookFromCart(book: string): void {
-    this.cart.remove(book);
-  }
-
-  showShoppingCart(): void {
-    this.isShowCart = true;
-  }
-
-  closeModal(state: boolean): void {
-    this.isShowInfo = state;
-    this.isShowCart = state;
   }
 }

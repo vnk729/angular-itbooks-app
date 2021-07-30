@@ -1,22 +1,12 @@
-<header>
-  <div>
-    <h1 class="title">IT Bookstore</h1>
-    <div class="form-group">
-      <input type="text" placeholder="Search" class="form-control" [(ngModel)]="search">
-    </div>
-  </div>
-  <button type="button" class="btn btn-light" (click)="showShoppingCart()">
-    Cart <span class="badge bg-success">{{ shoppingCart.length }}</span>
-  </button>
-</header>
+<input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="search">
 
-<table class="table table-striped mt-2 align-middle">
+<table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col" (click)="onSortOrder('title')">Title</th>
       <th scope="col" (click)="onSortOrder('price')">Price</th>
-      <th scope="col">Buy</th>
+      <th scope="col" *ngIf="authService.isLoggedIn">Buy</th>
     </tr>
   </thead>
   <tbody>
@@ -24,22 +14,14 @@
       <th scope="row">{{ i + 1 }}</th>
       <td>
         <img [src]="book.image" alt="" width="50">
-        <a href="#" (click)="showBookInfo(book.isbn13)">{{ book.title }}</a>
+        <a [routerLink]="['/books', book.isbn13]">{{ book.title }}</a>
         <small class="text-muted subtitle">{{ book.subtitle }}</small>
       </td>
       <td class="price">{{ book.price === '$0.00' ? 'Free' : book.price }}</td>
-      <td>
-        <button type="button" class="btn btn-success" *ngIf="!shoppingCart.includes(book.title)" (click)="addBookToCart(book)">+</button>
-        <button type="button" class="btn btn-secondary" *ngIf="shoppingCart.includes(book.title)" (click)="removeBookFromCart(book.title)">-</button>
+      <td *ngIf="authService.isLoggedIn">
+        <button type="button" class="btn btn-success" *ngIf="!this.cartService.books.includes(book)" (click)="addToCart(book)">+</button>
+        <button type="button" class="btn btn-secondary" *ngIf="this.cartService.books.includes(book)" (click)="removeFromCart(book)">-</button>
       </td>
     </tr>
   </tbody>
 </table>
-
-<app-modal *ngIf="isShowInfo">
-  <app-info [bookInfo]="bookInfo" (isShow)="closeModal($event)"></app-info>
-</app-modal>
-
-<app-modal [hidden]="!isShowCart">
-  <app-cart [shoppingCart]="shoppingCart" (isShow)="closeModal($event)"></app-cart>
-</app-modal>
